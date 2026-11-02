@@ -1,0 +1,10 @@
+{
+  "name": "FreeTune 免费音乐",
+  "short_name": "FreeTune",
+  "description": "搜索并播放开放许可的免费音乐",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#090a10",
+  "theme_color": "#090a10",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

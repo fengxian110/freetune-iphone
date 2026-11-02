@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#090a10"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="FreeTune - 搜索并播放开放许可的免费音乐">
+  <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.svg">
+  <title>FreeTune · 免费音乐</title>
+  <style>
+    :root{color-scheme:dark;--bg:#090a10;--panel:#141620;--panel2:#1c1f2b;--muted:#9297a8;--text:#f5f6fb;--accent:#a78bfa;--line:#292d3b}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#27213d 0%,var(--bg) 48%);color:var(--text);font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;padding:env(safe-area-inset-top) 0 calc(100px + env(safe-area-inset-bottom))}
+    .app{max-width:760px;margin:auto;padding:20px 18px}.top{display:flex;align-items:center;justify-content:space-between;margin:8px 0 24px}.brand{font-size:23px;font-weight:800;letter-spacing:-.7px}.brand span{color:var(--accent)}.tag{font-size:11px;color:#c9b9ff;background:#30264c;padding:6px 10px;border-radius:20px}
+    h1{font-size:29px;line-height:1.15;margin:10px 0 8px;letter-spacing:-.8px}.sub{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 20px}.search{display:flex;gap:9px;background:var(--panel);border:1px solid var(--line);padding:7px;border-radius:16px}.search input{min-width:0;flex:1;background:transparent;border:0;outline:0;color:white;padding:9px;font-size:15px}.search button,.primary{border:0;border-radius:12px;background:var(--accent);color:#171020;font-weight:750;padding:0 17px}.chips{display:flex;gap:8px;overflow:auto;padding:14px 0 20px}.chip{white-space:nowrap;border:1px solid var(--line);border-radius:20px;padding:8px 13px;color:#c7cada;background:#11131c;font-size:12px}.chip:active,.chip.active{background:#30264c;border-color:#8067c7;color:white}
+    .section{display:flex;align-items:center;justify-content:space-between;margin:8px 0 13px}.section h2{font-size:17px;margin:0}.section small{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.track{background:linear-gradient(145deg,#191c28,#11131b);border:1px solid #252938;border-radius:16px;padding:10px;min-width:0}.cover{width:100%;aspect-ratio:1;object-fit:cover;border-radius:11px;background:#29233b}.cover.placeholder{display:grid;place-items:center;color:#b8a2ff;font-size:35px}.track-title{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:10px 0 4px}.artist{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:10px}.license{font-size:10px;color:#b7a9dc;background:#28213b;padding:4px 7px;border-radius:8px}.play{border:0;border-radius:50%;width:35px;height:35px;background:#a78bfa;color:#181021;font-size:15px;font-weight:bold}.empty{padding:32px 14px;text-align:center;color:var(--muted);grid-column:1/-1;line-height:1.7}.notice{margin-top:20px;color:#777e91;font-size:11px;line-height:1.6}.player{position:fixed;z-index:5;bottom:0;left:0;right:0;background:rgba(17,18,27,.94);backdrop-filter:blur(22px);border-top:1px solid #303242;padding:11px 18px calc(11px + env(safe-area-inset-bottom));}.player-inner{max-width:760px;margin:auto;display:flex;align-items:center;gap:12px}.mini{width:46px;height:46px;border-radius:9px;object-fit:cover;background:#30264c}.now{flex:1;min-width:0}.now strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.now small{color:var(--muted);font-size:11px}.controls{display:flex;gap:8px;align-items:center}.controls button{border:0;background:transparent;color:white;font-size:23px;padding:5px}.controls .big{background:var(--accent);color:#160f20;width:42px;height:42px;border-radius:50%;font-size:17px}.progress{height:3px;background:#3a3d4b;margin:9px auto 0;max-width:760px;border-radius:3px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:var(--accent)}.toast{position:fixed;top:calc(12px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);background:#29243b;padding:10px 15px;border-radius:12px;font-size:12px;display:none;z-index:9;max-width:90%;text-align:center}
+    @media(min-width:620px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.app{padding-top:32px}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top"><div class="brand">Free<span>Tune</span></div><div class="tag">OPEN MUSIC · FREE</div></header>
+    <h1>发现好音乐。</h1><p class="sub">搜索开放许可音乐，免费试听与播放。每首歌均显示作者和许可信息。</p>
+    <form class="search" id="searchForm"><input id="query" autocomplete="off" placeholder="搜索歌曲、风格或音乐人…" aria-label="搜索音乐"><button type="submit">搜索</button></form>
+    <nav class="chips" aria-label="音乐分类"><button class="chip active" data-q="lofi instrumental">Lo-fi</button><button class="chip" data-q="jazz">爵士</button><button class="chip" data-q="ambient">氛围</button><button class="chip" data-q="classical piano">古典钢琴</button><button class="chip" data-q="electronic">电子</button><button class="chip" data-q="acoustic guitar">原声</button></nav>
+    <div class="section"><h2 id="resultsTitle">为你发现</h2><small id="count">开放许可曲库</small></div>
+    <section class="grid" id="results"><div class="empty">正在连接免费开放音乐曲库…</div></section>
+    <p class="notice">音乐由 Openverse 索引并链接至原始提供方。不同作品许可条件不同；播放或使用前请查看作品页面的许可与署名要求。FreeTune 不托管音乐文件。</p>
+  </main>
+  <aside class="player" aria-label="音乐播放器"><div class="player-inner"><img class="mini" id="miniCover" alt="专辑封面" src="icon.svg"><div class="now"><strong id="nowTitle">选择一首音乐开始播放</strong><small id="nowArtist">FreeTune · Open Music</small></div><div class="controls"><button id="prev" aria-label="上一首">‹</button><button class="big" id="toggle" aria-label="播放或暂停">▶</button><button id="next" aria-label="下一首">›</button></div></div><div class="progress"><i id="bar"></i></div></aside>
+  <div class="toast" id="toast"></div><audio id="audio" playsinline></audio>
+<script>
+(() => {
+ const API='https://api.openverse.org/v1/audio/';
+ const $=id=>document.getElementById(id); let tracks=[],current=-1,busy=false;
+ const audio=$('audio');
+ function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.style.display='none',3000)}
+ function duration(ms){if(!ms)return '音乐';const s=Math.floor(ms/1000);return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`}
+ function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+ function licenseName(x){return ({cc0:'CC0',pdm:'公有领域',by:'CC BY', 'by-sa':'CC BY-SA','by-nc':'CC BY-NC','by-nc-sa':'CC BY-NC-SA','by-nd':'CC BY-ND','by-nc-nd':'CC BY-NC-ND'})[x]||String(x||'开放许可').toUpperCase()}
+ async function search(q='lofi instrumental'){
+  if(busy)return;busy=true;$('results').innerHTML='<div class="empty">正在搜索开放许可音乐…</div>';$('resultsTitle').textContent='搜索结果';
+  try{
+   const p=new URLSearchParams({q,category:'music',license:'cc0,pdm,by,by-sa,by-nc,by-nc-sa,by-nd,by-nc-nd',page_size:'24',mature:'false'});
+   const res=await fetch(API+'?'+p.toString(),{headers:{'Accept':'application/json'}});if(!res.ok)throw new Error(res.status===429?'曲库请求较频繁，请稍后再试':'音乐曲库暂时不可用');
+   const data=await res.json();tracks=(data.results||[]).filter(x=>x.url&&x.foreign_landing_url);$('count').textContent=`找到 ${tracks.length} 首`;
+   if(!tracks.length){$('results').innerHTML='<div class="empty">没有找到匹配音乐，试试英文关键词，例如 jazz、piano、ambient。</div>';return}
+   $('results').innerHTML=tracks.map((x,i)=>`<article class="track"><img class="cover" loading="lazy" src="${esc(x.thumbnail||'icon.svg')}" alt=""><div class="track-title" title="${esc(x.title)}">${esc(x.title||'未命名音乐')}</div><div class="artist">${esc(x.creator||'未知作者')} · ${duration(x.duration)}</div><div class="track-bottom"><span class="license">${esc(licenseName(x.license))}</span><button class="play" data-play="${i}" aria-label="播放 ${esc(x.title)}">▶</button></div></article>`).join('');
+  }catch(e){$('results').innerHTML=`<div class="empty">${esc(e.message)}<br>请检查网络连接，或稍后重试。</div>`;$('count').textContent='连接失败'}finally{busy=false}
+ }
+ async function play(i){const x=tracks[i];if(!x)return;current=i;audio.src=x.url;$('nowTitle').textContent=x.title||'未命名音乐';$('nowArtist').textContent=x.creator||'未知作者';$('miniCover').src=x.thumbnail||'icon.svg';$('toggle').textContent='Ⅱ';try{await audio.play()}catch(e){$('toggle').textContent='▶';toast('此音源可能限制直接播放，请打开作品来源页面查看。')}document.querySelectorAll('[data-play]').forEach(b=>b.textContent=Number(b.dataset.play)===i?'Ⅱ':'▶')}
+ $('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('query').value.trim();if(q)search(q)});
+ document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('query').value=b.dataset.q;search(b.dataset.q)}));
+ $('results').addEventListener('click',e=>{const b=e.target.closest('[data-play]');if(b){const i=Number(b.dataset.play);if(i===current&&!audio.paused){audio.pause()}else play(i)}});
+ $('toggle').addEventListener('click',()=>{if(!audio.src){toast('请先选择一首音乐');return}if(audio.paused)audio.play().then(()=>$('toggle').textContent='Ⅱ').catch(()=>toast('播放失败，请尝试其他歌曲'));else audio.pause()});
+ $('prev').addEventListener('click',()=>{if(current>0)play(current-1)});$('next').addEventListener('click',()=>{if(current<tracks.length-1)play(current+1)});
+ audio.addEventListener('play',()=>$('toggle').textContent='Ⅱ');audio.addEventListener('pause',()=>$('toggle').textContent='▶');audio.addEventListener('ended',()=>{if(current<tracks.length-1)play(current+1)});audio.addEventListener('timeupdate',()=>{$('bar').style.width=audio.duration?`${audio.currentTime/audio.duration*100}%`:'0%'});audio.addEventListener('error',()=>toast('该音源无法直接播放，可以尝试其他歌曲'));
+ if('serviceWorker'in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+ search();
+})();
+</script>
+</body></html>
