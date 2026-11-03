@@ -1,39 +1,16 @@
-# FreeTune — iPhone 免费音乐播放器
+# FreeTune iPhone PWA（修复版）
 
-一个可添加到 iPhone 主屏幕的 PWA。使用 Openverse Audio API 搜索音乐，并仅请求 Openverse 标记为开放许可的音乐作品（CC0、PDM、CC BY 等）。本项目不托管音乐文件、不破解会员或 DRM。
+## 本次修复
+- 搜索按钮改为明确的点击事件，兼容 iPhone Safari。
+- 搜索请求增加 12 秒超时，避免首次自动搜索卡住后一直无法再次搜索。
+- Service Worker 缓存版本升级到 freetune-v3，便于手机获取新代码。
+- 搜索仍使用 Openverse 开放许可音频 API；不破解会员、不抓取付费音乐。
 
-## 本地预览
+## 更新到 GitHub Pages
+1. 解压本 ZIP。
+2. 将里面的 5 个文件上传到 GitHub 仓库根目录，覆盖同名文件。
+3. 点击 Commit changes，等待 Pages 部署完成。
+4. iPhone Safari 打开网站并刷新；若仍旧，关闭已添加到主屏幕的 FreeTune，删除图标，再从 Safari 重新添加。
 
-直接打开 `index.html` 可以查看界面；浏览器通常要求 HTTPS/localhost 才允许 PWA 安装和 Service Worker。推荐部署到 HTTPS 静态托管。
-
-## 部署到 GitHub Pages
-
-1. 登录 GitHub，新建一个公开仓库，例如 `freetune-iphone`。
-2. 上传本目录中的 `index.html`、`manifest.webmanifest`、`sw.js`、`icon.svg`。
-3. 仓库 Settings → Pages → Deploy from a branch，选择 `main` 和 `/ (root)` 保存。
-4. 等待 GitHub Pages 发布，得到 `https://你的用户名.github.io/freetune-iphone/` 地址。
-
-也可以使用 Netlify / Cloudflare Pages 的静态站点部署功能，发布本目录即可。
-
-## iPhone 安装
-
-1. 用 iPhone 的 Safari 打开部署网址（不要用微信内置浏览器）。
-2. 点击底部“分享”按钮。
-3. 选择“添加到主屏幕”。
-4. 点击“添加”，桌面会出现 FreeTune 图标。
-
-## 曲库和许可说明
-
-- 搜索接口：`https://api.openverse.org/v1/audio/`
-- Openverse 是开放许可媒体搜索引擎，匿名访问有速率限制。
-- 应用筛选音乐类别，并包含 CC0、PDM、CC BY 等许可类型。
-- 许可并不等于所有用途均无限制：CC BY/SA 等可能要求署名或相同方式共享；NC 表示非商业；ND 表示不得改编。播放、下载、再利用前请进入作品来源页核对具体条款。
-- Openverse 的结果可能包含无法直接播放的音源、失效链接或跨域限制；遇到无法播放的曲目可尝试其他结果，并从作品来源页访问。
-- 此版本为第一版原型：在线搜索、播放、上一首/下一首、播放状态和 PWA 基础缓存已实现。收藏、歌词、离线下载、曲库账号等尚未实现。
-
-## 文件
-
-- `index.html`：界面与播放器逻辑
-- `manifest.webmanifest`：PWA 安装信息
-- `sw.js`：基础静态资源缓存
-- `icon.svg`：应用图标
+## 注意
+Openverse API 是免费开放许可媒体搜索服务，但服务可能限流或在部分网络环境无法访问。若显示“连接音乐曲库超时”，说明手机到 API 的网络请求未成功，并非搜索按钮失灵。
