@@ -10,7 +10,7 @@
 1. 解压本 ZIP。
 2. 将里面的 5 个文件上传到 GitHub 仓库根目录，覆盖同名文件。
 3. 点击 Commit changes，等待 Pages 部署完成。
-4. iPhone Safari 打开网站并刷新；若仍旧，关闭已添加到主屏幕的 FreeTune，删除图标，再从 Safari 重新添加。
+4. iPhone Safari 打开网站并刷新；若仍旧，关闭已添加到主屏幕的 FreeTune，删除图标，再从 Safari 重新添加。。
 
 ## 注意
 Openverse API 是免费开放许可媒体搜索服务，但服务可能限流或在部分网络环境无法访问。若显示“连接音乐曲库超时”，说明手机到 API 的网络请求未成功，并非搜索按钮失灵。
